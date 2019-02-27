@@ -12,6 +12,15 @@ import itertools
 import os
 from collections import Counter
 
+'''
+Notes and Bibliography:
+Some of the following functions
+clean_text, pad_sentences, build_vocab, batch_iter are taken from follwing
+projects
+https://github.com/dennybritz/cnn-text-classification-tf/blob/master/data_helpers.py
+https://github.com/thtrieu/qclass_dl/blob/master/data_helpers.py
+''' 
+
 class Dataset():
     def __init__(self, training_dataset, test_dataset):
         self.training_dataset = training_dataset
@@ -195,12 +204,7 @@ class Dataset():
         
     def print_stat(self, logs_dir):    
         color_list = ['red', 'green', 'blue', 'orange', 'yellow', 'black']
-        
-        #cmap = pyplot.get_cmap(1)
-        #cmap = pyplot.get_cmap('brg')
-        #for i in range(self.get_num_class()):
-        #    color_list.append(cmap(i))
-        
+              
         print("color_list : ", color_list)        
         print("Words in Vocabulary: ", self.get_voc_size())
         print("Classes: ", self.get_num_class())
