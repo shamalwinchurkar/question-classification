@@ -155,7 +155,9 @@ class Dataset():
         for indx in range(self.get_num_class()):
             class_stat_per[indx] = (class_stat[indx] / line_no) * 100
             class_index.append(self.y_classes[indx].upper())
-            print("Class : ", indx, "\t: ", self.y_classes[indx].upper(), " = ", class_stat[indx], "\t: % ", round(class_stat_per[indx], 1))
+            print("Class : ", indx, "\t: ", self.y_classes[indx].upper(),
+                  " = ", class_stat[indx], "\t: % ", 
+                  round(class_stat_per[indx], 1))
               
         print("Questions in training dataset: ", line_no)
         
@@ -164,7 +166,8 @@ class Dataset():
         width = 1.0, color = color_list) 
         pyplot.xlabel('Question Type Class', fontsize=18) 
         pyplot.ylabel('Distribution (%)', fontsize=18) 
-        pyplot.title('Question Type Training Data Distribution Graph', fontsize=18)
+        pyplot.title('Question Type Training Data Distribution Graph',
+                     fontsize=18)
         filename = os.path.join(logs_dir, "qtype_train_data_distribution.png")
         class_fig.savefig(filename)
         pyplot.show()
@@ -189,7 +192,9 @@ class Dataset():
         for indx in range(self.get_num_class()):
             class_stat_per[indx] = (class_stat[indx] / line_no) * 100
             class_index.append(self.y_classes[indx].upper())
-            print("Class : ", indx, "\t: ", self.y_classes[indx].upper(), " = ", class_stat[indx], "\t: % ", round(class_stat_per[indx], 1))
+            print("Class : ", indx, "\t: ", self.y_classes[indx].upper(),
+                  " = ", class_stat[indx],
+                  "\t: % ", round(class_stat_per[indx], 1))
               
         print("Questions in test dataset: ", line_no)    
         class_fig = pyplot.figure()
@@ -229,7 +234,6 @@ class Dataset():
         file.write(texts)
         file.close()
 
-
     def get_num_class(self):
         return len(self.y_classes)
 
@@ -238,7 +242,12 @@ class Dataset():
         
     def get_voc_size(self):
         return len(self.vocabulary_inv)
-        
+    
+    def load_inter_word_dict(self, filename):
+        inter_word_dict = open(filename, encoding = 'utf-8').read()
+        inter_word_dict = inter_word_dict.split(",")
+        self.inter_word_seq = np.array([self.vocabulary[word] for word in inter_word_dict])
+                
     def batch_iter(self, data, batch_size, num_epochs):
         data = np.array(data)
         data_size = len(data)

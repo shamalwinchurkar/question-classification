@@ -63,11 +63,10 @@ class SaveBestCallback(tf.keras.callbacks.Callback):
             
 # Training Parameters
 validation_samples = 500
-#filter_sizes = [3,4,5]
 dropout_rate = 0.5
        
 def train_model(model_list, train_dataset, test_dataset, embedding_file, 
-              batch_size, epochs):
+              inter_words_dict_file, batch_size, epochs):
     model_history = dict()
     checkpoint_history = dict()
     model_acc = []
@@ -75,7 +74,9 @@ def train_model(model_list, train_dataset, test_dataset, embedding_file,
     
     ds = qc_data.Dataset("data/train-trec.txt", "data/test-trec.txt")
     x_train, y_train, x_val, y_val, x_test, y_test = ds.load(validation_samples)
-        
+    
+    ds.load_inter_word_dict(inter_words_dict_file)
+    
     emb = qc_emb.Embeddings(embedding_file)
     emb_matrix = emb.get_emb_matrix(ds.vocabulary_inv)
     
@@ -233,7 +234,8 @@ def train_model(model_list, train_dataset, test_dataset, embedding_file,
         model_loss.append(loss)
         ds.write_predections(filename, y_test_nc, y_pred_nc)
     
-    qc_plot.plot_graphs(logs_dir, model_list, model_history, model_acc, model_loss)
+    qc_plot.plot_graphs(logs_dir, model_list, model_history, model_acc,
+                        model_loss, epochs)
       
     return
     
@@ -246,7 +248,7 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--test_dataset", help="Dataset to be tested",
                       type=str, default="data/test-trec.txt")
 
-    parser.add_argument("-d", "--interr_words_dictionary", help="interrogative words dictionary",
+    parser.add_argument("-d", "--inter_words_dictionary", help="interrogative words dictionary",
                       type=str, default="data/interrogative-words.txt")
 
     parser.add_argument("-e", "--embedding_file",
@@ -259,7 +261,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-p", "--epochs",
                       help="The number of epochs for training.",
-                      type=int, default=5)
+                      type=int, default=10)
     
     parser.add_argument("-m", "--model",
                       help="Model to train.",
@@ -279,7 +281,7 @@ if __name__ == "__main__":
         model_list = [args.model]
         
     train_model(model_list, args.train_dataset, args.test_dataset, 
-                args.embedding_file,
+                args.embedding_file, args.inter_words_dictionary,
                 args.batch_size,
                 args.epochs)
     
