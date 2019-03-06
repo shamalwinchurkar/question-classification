@@ -22,9 +22,10 @@ https://github.com/thtrieu/qclass_dl/blob/master/data_helpers.py
 ''' 
 
 class Dataset():
-    def __init__(self, training_dataset, test_dataset):
+    def __init__(self, training_dataset, test_dataset, atten_words_dataset):
         self.training_dataset = training_dataset
         self.test_dataset = test_dataset
+        self.atten_words_dataset = atten_words_dataset
         self.y_classes = dict()
         self.y_classes_inv = dict()
         self.vocabulary = None
@@ -71,8 +72,9 @@ class Dataset():
         text = re.sub(r"\s{2,}", " ", text)      
         return text.strip().lower()
       
-    def pad_sentences(self, sentences, padding_word="<PAD/>"):
-        sequence_length = max(len(x) for x in sentences)
+    def pad_sentences(self, sentences, padding_word="<PAD/>", sequence_length=0):
+        if sequence_length == 0:
+            sequence_length = max(len(x) for x in sentences)
         padded_sentences = []
         for i in range(len(sentences)):
             sentence = sentences[i]
@@ -80,7 +82,7 @@ class Dataset():
             new_sentence = sentence + [padding_word] * num_padding
             padded_sentences.append(new_sentence)
         return padded_sentences
-
+        
     def build_vocab(self, sentences):
         print("Building vocabulary")
         # Build vocabulary
@@ -97,18 +99,38 @@ class Dataset():
         x = np.array([[self.vocabulary[word] for word in sentence] for sentence in sentences])
         y = np.array(labels)
         return [x, y]
-
+           
+    def gen_attention_word_sen(self, sens):
+        atten_sen = []
+        atten_sens = []
+        for sen in sens:
+            for word in sen:
+                for atten_word in self.atten_words:
+                    if word == atten_word:
+                        atten_sen.append(word)
+                        
+            atten_sens.append(atten_sen)
+            atten_sen = []
+         
+        return atten_sens
+    
     def load(self, val_split):
         print("Loading data")
         x_train_data = list(open(self.training_dataset, encoding = 'utf-8').readlines())
         x_test_data = list(open(self.test_dataset, encoding = 'utf-8').readlines())
+        self.atten_words = open(self.atten_words_dataset, encoding = 'utf-8').read()
+        self.atten_words = self.atten_words.split(",")
+        
         test_size = len(x_test_data)
         
         x_text_data = x_train_data + x_test_data
         x_text_data = [self.clean_text(sent) for sent in x_text_data]
         y_text_data = [s.split(' ')[0].split(':')[0] for s in x_text_data]
         x_text_data = [s.split(" ")[1:] for s in x_text_data]
-                             
+                        
+        # Generate attention sentences
+        x_text_atten = self.gen_attention_word_sen(x_text_data)
+                        
         for label in y_text_data:
             if not label in self.y_classes_inv:
                 indx = len(self.y_classes_inv)
@@ -119,22 +141,31 @@ class Dataset():
         y_labels = [one_hot[ self.y_classes_inv[label]-1 ] for label in y_text_data]
     
         x_text_data = self.pad_sentences(x_text_data)
+        x_text_atten = self.pad_sentences(x_text_atten)
+                
         self.build_vocab(x_text_data)
         self.x_test_text = x_text_data[-test_size:]
         self.y_test_text = y_text_data[-test_size:]
-        x, y = self.fit_on_texts(x_text_data, y_labels)
         
+        x, y = self.fit_on_texts(x_text_data, y_labels)
+        x_atten, z = self.fit_on_texts(x_text_atten, y_labels)
+        
+        x_train_atten_, x_test_atten = x_atten[:-test_size], x_atten[-test_size:]
         x_train_, x_test = x[:-test_size], x[-test_size:]
         y_train_, y_test = y[:-test_size], y[-test_size:]
+        
         shuffle_indices = np.random.permutation(np.arange(len(y_train_)))
+        x_atten_shuffled = x_train_atten_[shuffle_indices]
+        
         x_shuffled = x_train_[shuffle_indices]
         y_shuffled = y_train_[shuffle_indices]
                 
         # Split train/hold-out/test set
+        x_train_atten, x_val_atten = x_atten_shuffled[:-val_split], x_atten_shuffled[-val_split:]
         x_train, x_val = x_shuffled[:-val_split], x_shuffled[-val_split:]
         y_train, y_val = y_shuffled[:-val_split], y_shuffled[-val_split:]
         
-        return [x_train, y_train, x_val, y_val, x_test, y_test]
+        return [x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, x_val_atten, x_test_atten]
     
     def print_training_stat(self, logs_dir, color_list):
         # Read a data file
@@ -242,12 +273,7 @@ class Dataset():
         
     def get_voc_size(self):
         return len(self.vocabulary_inv)
-    
-    def load_inter_word_dict(self, filename):
-        inter_word_dict = open(filename, encoding = 'utf-8').read()
-        inter_word_dict = inter_word_dict.split(",")
-        self.inter_word_seq = np.array([self.vocabulary[word] for word in inter_word_dict])
-                
+        
     def batch_iter(self, data, batch_size, num_epochs):
         data = np.array(data)
         data_size = len(data)

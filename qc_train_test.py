@@ -6,6 +6,7 @@ Created on Fri Feb 22 23:20:00 2019
 """
 import numpy as np
 import tensorflow as tf
+import tensorflow.keras.backend as K
 import qc_data
 import qc_emb
 import argparse
@@ -17,6 +18,7 @@ import qc_c_gru
 import qc_lstm
 import qc_c_lstm
 import qc_plot
+import qc_a_cnn
 
 from sklearn.metrics import confusion_matrix
 
@@ -66,30 +68,30 @@ validation_samples = 500
 dropout_rate = 0.5
        
 def train_model(model_list, train_dataset, test_dataset, embedding_file, 
-              inter_words_dict_file, batch_size, epochs):
+              atten_words_dict_file, batch_size, epochs):
     model_history = dict()
     checkpoint_history = dict()
     model_acc = []
     model_loss = []
-    
-    ds = qc_data.Dataset("data/train-trec.txt", "data/test-trec.txt")
-    x_train, y_train, x_val, y_val, x_test, y_test = ds.load(validation_samples)
-    
-    ds.load_inter_word_dict(inter_words_dict_file)
-    
+        
+    ds = qc_data.Dataset(train_dataset, test_dataset, atten_words_dict_file)
+    x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, \
+        x_val_atten, x_test_atten = ds.load(validation_samples)
+         
     emb = qc_emb.Embeddings(embedding_file)
     emb_matrix = emb.get_emb_matrix(ds.vocabulary_inv)
-    
     emb_dim = emb.get_emb_dim()
     voc_size = ds.get_voc_size()
     num_class = ds.get_num_class()
     sen_len = x_train.shape[1]
-        
+    atten_sen_len = x_train_atten.shape[1]
+    
+    print("atten_sen_len = ", atten_sen_len)  
     print("Tensorflow Keras Version ", tf.keras.__version__)
     print("Embedding Dimensions ", emb_dim)
     print("Train/Validation/Test split: {:d}/{:d}/{:d}".format(len(y_train),
           len(y_val), len(y_test)))
-        
+       
     # Output directory for models and summaries
     timestamp = str(int(time.time()))
     run_folder = 'run'
@@ -100,7 +102,6 @@ def train_model(model_list, train_dataset, test_dataset, embedding_file,
     out_dir = os.path.abspath(os.path.join(os.path.curdir, run_folder,
                                            timestamp))
     
-    #print("Writing to {}\n".format(out_dir))    
     checkpoint_dir = os.path.abspath(os.path.join(out_dir, "checkpoints"))
     if not os.path.exists(checkpoint_dir):
         os.makedirs(checkpoint_dir)
@@ -205,6 +206,25 @@ def train_model(model_list, train_dataset, test_dataset, embedding_file,
                                 verbose=1, callbacks=[modelCheckpoint])
             model = qc_c_lstm.C_BLSTM(emb_dim, voc_size, sen_len,
                               num_class, emb_matrix, 0)    
+        elif model_name == "acnn":
+            # ACNN
+            model = qc_a_cnn.ACNN(emb_dim, voc_size, sen_len, atten_sen_len,
+                              num_class, emb_matrix,
+                              dropout_rate)
+            model.summary()
+            model.compile(loss="categorical_crossentropy",
+                          optimizer="adam",
+                          metrics=['acc'])
+            
+            history = model.fit(x_train, y_train, batch_size=batch_size, 
+                                validation_data = (x_val, y_val), epochs=epochs, 
+                                verbose=1, callbacks=None)
+             
+            #history = model.fit([x_train, x_train_atten], y_train, batch_size=batch_size, 
+            #                    validation_data = ([x_val, x_val_atten], y_val), epochs=epochs, 
+            #                    verbose=1, callbacks=None)
+            
+            return
         else:
             print("Requested model {} is not implemented".format(model_name))
             continue
@@ -215,7 +235,7 @@ def train_model(model_list, train_dataset, test_dataset, embedding_file,
         y_test_nc = [ np.argmax(t) for t in y_test ]
         y_pred_nc = [ np.argmax(t) for t in y_pred_cnn ]
         cm = confusion_matrix(y_test_nc, y_pred_nc)
-        print("{} Confusion Matrix:".format(model_name))
+        print("{} Confusion Matrix:".format(model_name.upper()))
         print(cm)
         
         filename = os.path.join(logs_dir, model_name + "-test-predictions.csv")
@@ -248,8 +268,8 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--test_dataset", help="Dataset to be tested",
                       type=str, default="data/test-trec.txt")
 
-    parser.add_argument("-d", "--inter_words_dictionary", help="interrogative words dictionary",
-                      type=str, default="data/interrogative-words.txt")
+    parser.add_argument("-d", "--attention_words_dictionary", help="Attention words dictionary",
+                      type=str, default="data/attention-words.txt")
 
     parser.add_argument("-e", "--embedding_file",
                       help="Embeding file to load for Embedding layer.",
@@ -267,7 +287,7 @@ if __name__ == "__main__":
                       help="Model to train.",
                       type=str, 
                       choices = ["cnn", "bgru", "c-bgru", "blstm", "c-blstm",
-                                 "mac-bgru", "all"],
+                                 "mac-bgru", "acnn", "all"],
                       default="all")
     
     parser.add_argument("-n", "--mode", help="Train or test model",
@@ -276,12 +296,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
     model_list = None
     if args.model == "all":
-        model_list = ["cnn", "bgru", "c-bgru", "blstm", "c-blstm"]
+        model_list = ["cnn", "bgru", "c-bgru", "blstm", "c-blstm", "acnn"]
     else:
         model_list = [args.model]
         
     train_model(model_list, args.train_dataset, args.test_dataset, 
-                args.embedding_file, args.inter_words_dictionary,
+                args.embedding_file, args.attention_words_dictionary,
                 args.batch_size,
                 args.epochs)
     
