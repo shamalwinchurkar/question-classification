@@ -16,6 +16,9 @@ A = [[1,2,3,4], [1,2,3,4], [1,2,3,4]]
 B = [[2,2,3,2], [1,1,1,1], [4,4,4,4]]
 W = [[2,2,2,2], [2,2,2,2], [2,2,2,2]]
 
+A = [[1,2,3,4]]
+B = [[1,2,3,4]]
+
 a = K.variable(value=A)
 b = K.variable(value=B)
 w = K.variable(value=W)
@@ -24,9 +27,19 @@ print("shape of a: ", a)
 print("shape of b: ", b)
 print("shape of w: ", w)
 
-v = w * a
+at = K.transpose(a)
 
-z = K.map_fn(single_instance, )
+print("shape of at: ", at)
+print("at = \n", K.eval(at))
+
+print("shape of b: ", b)
+print("b = \n", K.eval(b))
+
+z = K.dot(at, b)
+#z = K.squeeze(z, axis=0)
+#v = w * a
+
+#z = K.map_fn(single_instance, )
 
 print("shape of z: ", z)
 print("z = \n", K.eval(z))

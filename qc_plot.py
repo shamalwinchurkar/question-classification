@@ -8,9 +8,24 @@ import os
 import numpy as np
 from matplotlib import pyplot
 
-color_list = ['red', 'green', 'blue', 'orange', 'yellow', 'black', 'brown']
+color_list = ['red', 'green', 'blue', 'orange', 'yellow', 'black', 'brown',
+              'cyan', 'magenta']
 
-def plot_graphs(logs_dir, model_list, model_history, model_acc, model_loss, epochs):
+
+def write_test_results(filename, plot_model_list, model_acc, model_loss,
+                       epoch_list, model_val_acc, model_val_loss):
+    texts = "MODEL," + ','.join(str(e) for e in plot_model_list)
+    texts += "\nEPOCH," + ','.join(str(e) for e in epoch_list)
+    texts += "\nVALIDATION ACCURACY," + ','.join(str(e) for e in model_val_acc)
+    texts += "\nVALIDATION LOSS," + ','.join(str(e) for e in model_val_loss)
+    texts += "\nTEST ACCURACY," + ','.join(str(e) for e in model_acc)
+    texts += "\nTEST LOSS," + ','.join(str(e) for e in model_loss)             
+    file = open(filename, "w", encoding = 'utf-8')
+    file.write(texts)
+    file.close()
+
+def plot_graphs(logs_dir, model_list, model_history, model_acc, model_loss,
+                epochs, epoch_list, model_val_acc, model_val_loss):
     plot_model_list = []
     color = dict()
     i = 0    
@@ -130,5 +145,9 @@ def plot_graphs(logs_dir, model_list, model_history, model_acc, model_loss, epoc
     filename = os.path.join(logs_dir, 'test-loss.png')
     class_fig.savefig(filename)
     pyplot.show()
+    
+    filename = os.path.join(logs_dir, 'test-results.csv')
+    write_test_results(filename, plot_model_list, model_acc, model_loss,
+                       epoch_list, model_val_acc, model_val_loss)
     
     return

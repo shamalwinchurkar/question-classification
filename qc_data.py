@@ -247,7 +247,7 @@ class Dataset():
                     
         self.print_training_stat(logs_dir, color_list)
         self.print_test_stat(logs_dir, color_list)
-       
+    
     def write_predections(self, filename, y_test, y_pred):
         texts = "PREDICTED,ACTUAL,QUESTION\n"
         target = []
