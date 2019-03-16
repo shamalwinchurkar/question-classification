@@ -31,7 +31,7 @@ class A_BGRU(tf.keras.models.Model):
         qc = tf.keras.layers.Multiply()([activations, attention])
         qc = tf.keras.layers.Lambda(lambda xin: K.sum(xin, axis=-2),
                                     output_shape=(units * 2,))(qc)
-                
+        qc = tf.keras.layers.Dropout(dropout_rate)(qc)        
         output = tf.keras.layers.Dense(class_dim, activation="softmax", 
                 kernel_regularizer = tf.keras.regularizers.l2(l=0.0) )(qc)
         super(A_BGRU, self).__init__(inputs=[input_layer], outputs=output)

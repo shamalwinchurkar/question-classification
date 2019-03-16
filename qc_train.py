@@ -294,15 +294,11 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
                           optimizer="adam",
                           metrics=['acc'])
             
-            history = model.fit(x_train, y_train, batch_size=batch_size, 
-                                validation_data = (x_val, y_val), epochs=epochs, 
-                                verbose=1, callbacks=None)
-             
-            #history = model.fit([x_train, x_train_atten], y_train, batch_size=batch_size, 
-            #                    validation_data = ([x_val, x_val_atten], y_val), epochs=epochs, 
-            #                    verbose=1, callbacks=None)
+            modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)             
+            history = model.fit([x_train, x_train_atten], y_train, batch_size=batch_size, 
+                                validation_data = ([x_val, x_val_atten], y_val), epochs=epochs, 
+                                verbose=1, callbacks=[modelCheckpoint])
             
-            return
         else:
             print("Requested model {} is not implemented".format(model_name))
             continue

@@ -91,7 +91,129 @@ def read_model_val_cfg(filename):
     file.close()        
     return epoch, acc, loss
 
-def train_model(model_list, train_dataset, test_dataset, embedding_file, 
+def read_model_cfg(trained_models_file):
+    model_dict = dict()
+    file = open(trained_models_file, "r", encoding = 'utf-8')
+    for line in file:
+        words = line.split(',')
+        model_list[words[0]] = words[1]
+    file.close()        
+    return model_dict
+
+
+def write_model_cfg(trained_models_file, model_dict):
+    text = str()
+    file = open(trained_models_file, "w", encoding = 'utf-8')
+    for model_name, model_file in model_dict:
+        text += model_name + "," + model_file + "\n"
+    file.write(text)    
+    file.close()        
+    return model_dict
+
+def test_model(trained_models_file, train_dataset, test_dataset, 
+                embedding_file, atten_words_dict_file,
+                batch_size):
+    model_acc = []
+    model_loss = []
+    
+    model_dict = read_model_cfg(trained_models_file)
+    ds = qc_data.Dataset(train_dataset, test_dataset, atten_words_dict_file)
+    x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, \
+        x_val_atten, x_test_atten = ds.load(0)
+         
+    emb = qc_emb.Embeddings(embedding_file)
+    emb_matrix = emb.get_emb_matrix(ds.vocabulary_inv)
+    emb_dim = emb.get_emb_dim()
+    voc_size = ds.get_voc_size()
+    num_class = ds.get_num_class()
+    sen_len = x_train.shape[1]
+    atten_sen_len = x_train_atten.shape[1]
+    
+    print("atten_sen_len = ", atten_sen_len)  
+    print("Tensorflow Keras Version ", tf.keras.__version__)
+    print("Embedding Dimensions ", emb_dim)
+    print("Train/Validation/Test split: {:d}/{:d}/{:d}".format(len(y_train),
+          len(y_val), len(y_test)))
+    
+    # Output directory for models and summaries
+    timestamp = str(int(time.time()))
+    run_folder = 'run/test'
+    model_dir = os.path.abspath(os.path.join(os.path.curdir, run_folder))
+    if not os.path.exists(model_dir):
+        os.makedirs(model_dir)
+  
+    out_dir = os.path.abspath(os.path.join(os.path.curdir, run_folder,
+                                           timestamp))
+               
+    logs_dir = os.path.abspath(os.path.join(out_dir, "logs"))
+    if not os.path.exists(logs_dir):
+        os.makedirs(logs_dir)    
+                       
+    ds.print_stat(logs_dir)
+    
+    for model_name, model_file in model_dict:
+        if model_name == "cnn":
+             model = qc_cnn.CNN(emb_dim, voc_size, sen_len,
+                              num_class, emb_matrix, 0)
+        elif model_name == "bgru":
+             model = qc_gru.BGRU(emb_dim, voc_size, sen_len,
+                              num_class, emb_matrix, 0)
+        
+        elif model_name == "c-bgru":     
+             model = qc_c_gru.C_BGRU(emb_dim, voc_size, sen_len,
+                              num_class, emb_matrix, 0)
+        elif model_name == "a-bgru":
+             model = qc_a_gru.A_BGRU(emb_dim, voc_size, sen_len,
+                              num_class, emb_matrix, 0)
+        elif model_name == "c-a-bgru":
+             model = qc_c_a_gru.C_A_BGRU(emb_dim, voc_size, sen_len,
+                              num_class, emb_matrix, 0)
+        elif model_name == "blstm":
+             model = qc_lstm.BLSTM(emb_dim, voc_size, sen_len,
+                              num_class, emb_matrix, 0)
+        elif model_name == "a-blstm":
+             model = qc_a_lstm.A_BLSTM(emb_dim, voc_size, sen_len,
+                              num_class, emb_matrix, 0)    
+        elif model_name == "c-blstm":
+             model = qc_c_lstm.C_BLSTM(emb_dim, voc_size, sen_len,
+                              num_class, emb_matrix, 0)    
+        elif model_name == "c-a-blstm":
+             model = qc_c_a_lstm.C_A_BLSTM(emb_dim, voc_size, sen_len,
+                              num_class, emb_matrix, 0)
+        else:
+            print("Requested model {} is not implemented".format(model_name))
+            continue
+    
+        model.load_weights(model_file)
+        y_pred_cnn = model.predict(x_test, verbose=1, batch_size=batch_size)
+        y_pred_cnn = (y_pred_cnn > 0.5)
+        y_test_nc = [ np.argmax(t) for t in y_test ]
+        y_pred_nc = [ np.argmax(t) for t in y_pred_cnn ]
+        cm = confusion_matrix(y_test_nc, y_pred_nc)
+        print("{} Confusion Matrix:".format(model_name.upper()))
+        print(cm)
+        
+        filename = os.path.join(logs_dir, model_name + "-test-predictions.csv")
+        length = len(cm[0])
+        accuracy = 0    
+        for i in range(length):
+            accuracy += cm[i][i]
+        accuracy = round((accuracy / len(y_test_nc)), 4)
+        loss = round(1 - accuracy, 2)
+        print("\n{} CM Test Score: Accuracy {}".format(model_name.upper(), 
+              accuracy))
+        print("{} CM Test Score: Loss {}".format(model_name.upper(), loss))
+                
+        model_acc.append(accuracy)
+        model_loss.append(loss)
+        ds.write_predections(filename, y_test_nc, y_pred_nc)    
+    
+    filename = os.path.join(logs_dir, 'test-results.csv')
+    qc_plot.write_test_results(filename, model_list, model_acc, model_loss)
+    return
+
+    
+def train_model(model_list, trained_models_file, train_dataset, test_dataset, embedding_file, 
               atten_words_dict_file, batch_size, epochs, validation_samples,
               dropout_rate):
     model_history = dict()
@@ -353,6 +475,7 @@ def train_model(model_list, train_dataset, test_dataset, embedding_file,
         model_val_loss.append(val_loss)
         ds.write_predections(filename, y_test_nc, y_pred_nc)
     
+    write_model_cfg(trained_models_file, checkpoint_history)
     qc_plot.plot_graphs(logs_dir, model_list, model_history, model_acc,
                         model_loss, epochs, epoch_list, model_val_acc, 
                         model_val_loss)
@@ -375,6 +498,10 @@ if __name__ == "__main__":
                       help="Embeding file to load for Embedding layer.",
                       type=str, default="data/gn_pre_trained_embeddings")
    
+    parser.add_argument("-u", "--trained_models",
+                      help="Trained models list in CSV file.",
+                      type=str, default="trained_models.csv")
+    
     parser.add_argument("-b", "--batch_size",
                       help="The size of each batch for training.",
                       type=int, default=50)
@@ -411,9 +538,14 @@ if __name__ == "__main__":
                       "c-a-blstm"]
     else:
         model_list = [args.model]
-        
-    train_model(model_list, args.train_dataset, args.test_dataset, 
+    
+    if args.mode == "train":    
+        train_model(model_list, args.trained_models, args.train_dataset, args.test_dataset, 
                 args.embedding_file, args.attention_words_dictionary,
                 args.batch_size, args.epochs, args.validation_samples,
                 args.dropout_rate)
+    else:
+       test_model(args.trained_models, args.test_dataset, 
+                args.embedding_file, args.attention_words_dictionary,
+                args.batch_size)
     

@@ -59,9 +59,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     model_list = None
     if args.model == "all":
-        model_list = ["cnn", "bgru", "c-bgru", "a-bgru", 
-                      "c-a-bgru", "blstm", "c-blstm", "a-blstm", 
-                      "c-a-blstm"]
+        model_list = ["cnn", "a-bgru", "c-a-bgru"]  
+        #model_list = ["cnn", "bgru", "c-bgru", "a-bgru", 
+        #              "c-a-bgru", "blstm", "c-blstm", "a-blstm", 
+        #              "c-a-blstm"]
     else:
         model_list = [args.model]
     
