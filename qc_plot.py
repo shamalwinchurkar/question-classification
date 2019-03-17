@@ -27,8 +27,8 @@ def plot_graphs(logs_dir, model_list, model_history, model_acc, model_loss,
         acc_fig = pyplot.figure()
         title = 'Accuracy Curves : ' + model_name.upper()
         pyplot.title(title, fontsize=18)
-        pyplot.plot(history.history['acc'], 'b', linewidth=3.0)
-        pyplot.plot(history.history['val_acc'], 'r', linewidth=3.0)
+        pyplot.plot(history.history['categorical_accuracy'], 'b', linewidth=3.0)
+        pyplot.plot(history.history['val_categorical_accuracy'], 'r', linewidth=3.0)
         pyplot.legend(['Training', 'Validation'], fontsize=12)
         pyplot.xlabel('Epochs ',fontsize=18)
         pyplot.ylabel('Accuracy',fontsize=18)
@@ -58,7 +58,7 @@ def plot_graphs(logs_dir, model_list, model_history, model_acc, model_loss,
     fig = pyplot.figure()
     pyplot.title('Training Accuracy Curves', fontsize=18)
     for model_name, history in model_history.items():
-        pyplot.plot(history.history['acc'], c = color[model_name], linewidth=3.0)
+        pyplot.plot(history.history['categorical_accuracy'], c = color[model_name], linewidth=3.0)
         
     pyplot.legend(plot_model_list, fontsize=12)    
     pyplot.xlabel('Epochs ', fontsize=18)
@@ -87,7 +87,7 @@ def plot_graphs(logs_dir, model_list, model_history, model_acc, model_loss,
     fig = pyplot.figure()
     pyplot.title('Validation Accuracy Curves', fontsize=18)
     for model_name, history in model_history.items():
-        pyplot.plot(history.history['val_acc'], c = color[model_name], linewidth=3.0)
+        pyplot.plot(history.history['val_categorical_accuracy'], c = color[model_name], linewidth=3.0)
         
     pyplot.legend(plot_model_list, fontsize=12)    
     pyplot.xlabel('Epochs ',fontsize=18)

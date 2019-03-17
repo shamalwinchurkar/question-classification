@@ -12,11 +12,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-t", "--train_dataset", help="Dataset to be trained "
                                               "and evaluated.",
-                      type=str, default="data/train-trec.txt")
-  
+                      type=str, default="data/train-trec-proc.txt")
+    
+    parser.add_argument("-f", "--validation_dataset", help="Dataset to be validate",
+                      type=str, default="data/val-trec.txt")
+    
     parser.add_argument("-r", "--test_dataset", help="Dataset to be tested",
                       type=str, default="data/test-trec.txt")
-
+    
     parser.add_argument("-d", "--attention_words_dictionary", help="Attention words dictionary",
                       type=str, default="data/attention-words.txt")
 
@@ -68,7 +71,7 @@ if __name__ == "__main__":
     
     if args.mode == "train":    
         qc_train.train_model(model_list, args.trained_models,
-                args.train_dataset, args.test_dataset, 
+                args.train_dataset, args.validation_dataset, args.test_dataset, 
                 args.embedding_file, args.attention_words_dictionary,
                 args.batch_size, args.epochs, args.validation_samples,
                 args.dropout_rate)

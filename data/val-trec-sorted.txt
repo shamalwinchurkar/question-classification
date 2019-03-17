@@ -1,0 +1,492 @@
+ABBR:abb What is the abbreviated expression for the National Bureau of Investigation ?
+ABBR:abb What is the acronym for the National Bureau of Investigation ?
+ABBR:exp CNN is the abbreviation for what ?
+ABBR:exp What does BUD stand for ?
+ABBR:exp What does `` B.Y.O.B. '' mean ?
+ABBR:exp What does EKG stand for ?
+ABBR:exp What does JESSICA mean ?
+ABBR:exp What is BPH ?
+ABBR:exp What is LMDS ?
+DESC:def Define cosmology .
+DESC:def How can you define time ?
+DESC:def What are a baseball team 's firemen ?
+DESC:def What are amaretto biscuits ?
+DESC:def What are bear and bull markets ?
+DESC:def What does Aaron mean ?
+DESC:def What does appropriates money mean ?
+DESC:def What does a red flag mean in auto racing ?
+DESC:def What do the 12 days of Christmas mean ?
+DESC:def What do the figures represent on the Easter Island ?
+DESC:def What do the names Neil , Mary , and Anthony mean ?
+DESC:def What is a biologist ?
+DESC:def What is a Canada two-penny black ?
+DESC:def What is a green bog ?
+DESC:def What is graduate school ?
+DESC:def What is Greek pita ?
+DESC:def What is gymnophobia ?
+DESC:def What is habeas corpus ?
+DESC:def What is Head Start ?
+DESC:def What is hebephrenia ?
+DESC:def What is home banking ?
+DESC:def What is humidity ?
+DESC:def What is hydroelectricity ?
+DESC:def What is hydrogen ?
+DESC:def What is hyperopia ?
+DESC:def What is hypertext ?
+DESC:def What is hypnotherapy ?
+DESC:def What is idealab ! ?
+DESC:def What is idealab ! ?
+DESC:def What is infomatics ?
+DESC:def What is lung cancer ?
+DESC:def What is Olestra ?
+DESC:def What is osmosis ?
+DESC:def What is osteichthyes ?
+DESC:def What is ouzo ?
+DESC:def What is The Gay Science ?
+DESC:def What is the `` Global Economy '' ?
+DESC:def What is the Golden Rule ?
+DESC:def What is the hair style called that new military recruits receive ?
+DESC:def What is the half-life of P-32 ?
+DESC:def What is the highest Roman numeral ?
+DESC:def What is the Home Rule Act ?
+DESC:def What is the Hub of London ?
+DESC:def What is the Immaculate Conception ?
+DESC:def What is the Internet2 ?
+DESC:def What is the Kashmir issue ?
+DESC:def What is the largest variety of cactus ?
+DESC:def What is the literal meaning of `` D-DAY '' ?
+DESC:def What is the Lost Colony ?
+DESC:def What is the meaning of caliente , in English , ?
+DESC:def What is the meaning of `` CPR '' ?
+DESC:def What is the meaning of Jesus ?
+DESC:def What was an `` Asiento '' ?
+DESC:def What was the Chivington Massacre ?
+DESC:def What was The Living Room War ?
+DESC:desc What are my legal rights in an automobile repossession in California ?
+DESC:desc What are people doing to help prevent the extinction of birds ?
+DESC:desc What are the benefits of a rowing machine ?
+DESC:desc What did John Hinckley do to impress Jodie Foster ?
+DESC:desc What did Lenny Bruce say that got him arrested ?
+DESC:desc What did the Confederate Constitution say about slavery ?
+DESC:desc What do a diamond and lump of coal have in common ?
+DESC:desc What do bee hives do in cranberry bogs ?
+DESC:desc What do Christian Scientists believe in ?
+DESC:desc What does an echidna look like ?
+DESC:desc What does an emperor do ?
+DESC:desc What does a nihilist believe in ?
+DESC:desc What effect does a prism have on light ?
+DESC:desc What happened during the Blackhawk Indian war of 1832 ?
+DESC:desc What happened in the city of Dogtown in 1899 ?
+DESC:desc What happened in the Long March ?
+DESC:desc What must a Las Vegas blackjack dealer do when he reaches 16 ?
+DESC:desc What nuclear process takes place in an H-bomb ?
+DESC:desc What was the effect of the Yalta Conference ?
+DESC:desc What was the importance of Magellan ?
+DESC:desc What was the verdict in the 1925 trial of John T. Scopes ?
+DESC:desc Where did marijuana come from ?
+DESC:desc Where did the energy for the Big Bang come from ?
+DESC:desc Where did the marriage ceremony come from ?
+DESC:manner How can I determine the radius of an ellipse ?
+DESC:manner How can I easily remove red wine stains from t-shirts ?
+DESC:manner How can I find a list of celebrities ' real names ?
+DESC:manner How did Asia get its name ?
+DESC:manner How did Bob Marley die ?
+DESC:manner How did Edith Bunker die ?
+DESC:manner How do anti-locking brakes work ?
+DESC:manner How do ants have sex ?
+DESC:manner How do boats float ?
+DESC:manner How does a bill become law ?
+DESC:manner How does a chick breathe inside an egg ?
+DESC:manner How does a copier work ?
+DESC:manner How do I contact answers.com ?
+DESC:manner How do I e-mail someone at aol.com from yahoo.com ?
+DESC:manner How do I find a snowboarding website ?
+DESC:manner How do you ask a total stranger out on a date ?
+DESC:manner How do you ask questions ?
+DESC:manner How do you become a dentist ?
+DESC:manner How is a hydrogen bomb different from a nuclear bomb ?
+DESC:manner How is an executioner determined ?
+DESC:manner How is Answers.com different from KnowPost.com ?
+DESC:manner How was Teddy Roosevelt related to FDR ?
+DESC:reason What are Cushman and Wakefield known for ?
+DESC:reason What are the factors leading to the high teen pregnancy rate in Spartanburg , South Carolina ?
+DESC:reason What caused Harry Houdini 's death ?
+DESC:reason What caused Shea & Gould to close their L.A. office ?
+DESC:reason What caused the death of Bob Marley ?
+DESC:reason What is Archimedes famous for ?
+DESC:reason What is Betsy Ross famous for ?
+DESC:reason What is Black Hills , South Dakota most famous for ?
+DESC:reason What made Jane Goodall famous ?
+DESC:reason What makes a clitoris sensitive ?
+DESC:reason What makes a tornado turn ?
+DESC:reason What makes Black Hills , South Dakota a tourist attraction ?
+DESC:reason What makes hamburgers taste like steakburgers ?
+DESC:reason What was Al Capone finally imprisoned for , in 1931 ?
+DESC:reason What was the claim to fame of Explorer I , launched February 1 , 1958 ?
+DESC:reason Why are eggs supposed to be stored small end down ?
+DESC:reason Why are electric cars less efficient in the northeast than in California ?
+DESC:reason Why are haunted houses popular ?
+DESC:reason Why can 't ostriches fly ?
+DESC:reason Why did David Koresh ask the FBI for a word processor ?
+DESC:reason Why did Egyptians shave their eyebrows ?
+DESC:reason Why did Europeans first come to Australia and Oceania ?
+DESC:reason Why does a candle go out when we blow on it ?
+DESC:reason Why does a candle need a wick ?
+DESC:reason Why does a wheel , e.g. a car tire , appear to spin in the opposite direction as it slows down ?
+DESC:reason Why do eyes sometimes look red in photographs ?
+DESC:reason Why do girls have to wear training bras ?
+DESC:reason Why do heavier objects travel downhill faster ?
+DESC:reason Why do we have to go to school ?
+DESC:reason Why do you say `` God bless you '' when people sneeze ?
+DESC:reason Why is black the color of mourning in the West ?
+DESC:reason Why is Chicago named Chicago ?
+DESC:reason Why is hockey so violent ?
+DESC:reason Why was the L.A. office of Shea and Gould closed ?
+DESC:reason Why was the zipper invented ?
+DESC:reason Why was Washington , DC originally called District of Columbia ?
+DESC:reason Why were people recruited for the Vietnam War ?
+ENTY:animal Name a flying mammal .
+ENTY:animal What animal causes the biggest threat to humans ?
+ENTY:animal What animals acted as lapwarmers for American colonists in church ?
+ENTY:animal What are birds descendents of ?
+ENTY:animal What bird can swim but can 't fly ?
+ENTY:animal What is a female rabbit called ?
+ENTY:animal What is California 's state bird ?
+ENTY:animal What is Dudley Do-Right 's horse 's name ?
+ENTY:animal What kind of animal is Babar ?
+ENTY:animal What kind of animals are Dorsets , Lincolns , Oxfords and Southdowns ?
+ENTY:animal What kind of animals were in the Paleozoic era ?
+ENTY:animal What was Paul Bunyan 's ox 's name ?
+ENTY:animal What was the first domesticated bird ?
+ENTY:animal What was the killer whale who died at Sea World of a fungal infection named ?
+ENTY:animal Which mammal lives , breeds , eats , and sleeps underground ?
+ENTY:animal Who was the first animal into space ?
+ENTY:body What are the main blood vessels ?
+ENTY:body What is the softest part of the body ?
+ENTY:cremat In what book can I find the story of Aladdin ?
+ENTY:cremat Name a film in which Jude Law acted .
+ENTY:cremat Name the only extant trilogy of classical Greek plays .
+ENTY:cremat What 1915 film was the first to gross $5 million ?
+ENTY:cremat What are the first ten amendements passed ?
+ENTY:cremat What book did Aaron Hass write ?
+ENTY:cremat What book is the follow-up to Future Shock ?
+ENTY:cremat What Broadway musical was inspired by Cervantes 's Don Quixote ?
+ENTY:cremat What did Shostakovich write for Rostropovich ?
+ENTY:cremat What is the largest sculpture in the world ?
+ENTY:dismed What 12-hour cold medicine uses the formula `` 6 , 6 , 12 '' in its ads ?
+ENTY:dismed What disease did August von Wassermann develop a specific test for in 196 ?
+ENTY:dismed What does a chiropodist treat ?
+ENTY:dismed What is a common anti-AIDS drug ?
+ENTY:dismed What is a fear of bees ?
+ENTY:dismed What is a fear of being alone ?
+ENTY:dismed What is a fear of being cold ?
+ENTY:dismed What is a fear of being dirty ?
+ENTY:event What are the historical trials following World War II called ?
+ENTY:event What new year is celebrated on February 16th ?
+ENTY:food What are all the different types of pizza ?
+ENTY:food What do flatfish eat ?
+ENTY:food What drink contains as many types of rum as possible ?
+ENTY:food What kind of fruit is a Yellow Transparent ?
+ENTY:instru What kind of guitar did Jimi Hendrix play ?
+ENTY:lang What are the four most widely-used languages in North America ?
+ENTY:lang Which language has the most words ?
+ENTY:other What are close encounters of the first and second kind ?
+ENTY:other What can one see in Reims ?
+ENTY:other What did a 16th-century Aztec athlete get for putting a rubber ball through a ring ?
+ENTY:other What does a chef coddle eggs in ?
+ENTY:other What do humans catch zoonose diseases from ?
+ENTY:other What is Bella Abzug 's sartorial trademark ?
+ENTY:other What kind of education would you need to become an athletic trainer for the NFL ?
+ENTY:other What 's the most powerful card in Euchre ?
+ENTY:other What type of bridge is the Golden Gate Bridge ?
+ENTY:other What was George Washington afraid of ?
+ENTY:other What was the alternate to VHS ?
+ENTY:other What were Baffin , Frobisher and Franklin looking for ?
+ENTY:plant What are some colorful flowers that will bloom in the fall in New England ?
+ENTY:plant What is state tree of Nebraska ?
+ENTY:plant What plant is rum made from ?
+ENTY:product What are different products of petroleum ?
+ENTY:product What is the best brand for a laptop computer ?
+ENTY:product What kind of car did Janis Joplin ask the Lord to buy her ?
+ENTY:product What product features a frog that says `` dig 'em '' ?
+ENTY:sport What kind of sports team is the Buffalo Sabres ?
+ENTY:sport What sport does Chris Jogis play ?
+ENTY:substance What are fingernails made of ?
+ENTY:substance What are super balls made of ?
+ENTY:substance What is a camel hair brush actually made out of ?
+ENTY:substance What is a golf ball made of ?
+ENTY:substance What is a softball made of ?
+ENTY:substance What 's the hardest substance in the human body ?
+ENTY:substance What 's the most abundant element in the sun ?
+ENTY:symbol What is the celtic symbol for `` life '' ?
+ENTY:symbol What is the chemical formula for napalm ?
+ENTY:techmeth What are common methods used to regulate monopolies ?
+ENTY:techmeth What does the technique called `` cold fusion '' produce ?
+ENTY:techmeth What do sailors use to measure time ?
+ENTY:termeq Aspartame is also known as what ?
+ENTY:termeq How do you say 2 in Latin ?
+ENTY:termeq What are dinosaur droppings called ?
+ENTY:termeq What does an irate car owner call iron oxide ?
+ENTY:termeq What do Italians call Florence ?
+ENTY:termeq What is a 2-sided object called ?
+ENTY:termeq What 's the common name for acetylsalicylic acid ?
+ENTY:termeq What was another name for East Germany ?
+ENTY:termeq What was Mark Johnson referring to when he said : `` I still can 't believe it- we beat the Russians ? ''
+ENTY:veh Name the ship Beany and Cecil sailed .
+ENTY:veh What is the name of the second space shuttle ?
+ENTY:veh What kind of rocket launched the Surveyor spacecraft ?
+ENTY:veh What was the name of Aristotle Onassis 's yacht ?
+ENTY:word What English word contains the most letters ?
+ENTY:word What is another word for diet ?
+ENTY:word What words in the English have two u 's back to back ?
+HUM:desc Who is Barbara Jordan ?
+HUM:desc Who was Buffalo Bill ?
+HUM:desc Who was Quetzalcoatl ?
+HUM:gr Name a French fascist party .
+HUM:gr What are the five most popular Usenet groups ?
+HUM:gr What army 's motto is Blood and Fire ?
+HUM:gr What company has built more than 2.5 billion little green houses since 1935 ?
+HUM:gr What group kidnaped Patricia Hearst ?
+HUM:gr What is the best art and design school in the world ?
+HUM:ind Name Dondi 's adoptive grandfather .
+HUM:ind Name of heroine in `` Scruples '' ?
+HUM:ind Name of heroine in `` Scruples '' ?
+HUM:ind Name of scholar on whose literal translations from the Chinese and Japanese Ezra Pound depended ?
+HUM:ind Name of the lady the Great Gatsby pines for ?
+HUM:ind Name of the powerful white trader in Conrad 's `` Heart of Darkness '' ?
+HUM:ind Name one of King Henry VIII 's wives .
+HUM:ind Name one of the major gods of Hinduism .
+HUM:ind Name Randy Craft 's lawyer .
+HUM:ind Name the blind sculptress in love with the Fantastic Four 's Thing .
+HUM:ind Name the cartoon genie conjured by the magic ring shared by Nancy and Chuck .
+HUM:ind Name the child left on a doorstep at the beginning of Gasoline Alley .
+HUM:ind Name the creator of `` The Muppets '' .
+HUM:ind Name the designer of the shoe that spawned millions of plastic imitations , known as ` jellies ' .
+HUM:ind Name the first private citizen to fly in space .
+HUM:ind Name the first Russian astronaut to do a spacewalk .
+HUM:ind Name the Four Horsemen of the Apocalypse .
+HUM:ind What 1920s cowboy star rode Tony the Wonder Horse ?
+HUM:ind What actor and actress have made the most movies ?
+HUM:ind What actor and World War II airman had a $5 , 0 bounty put on his head by Hermann Goering ?
+HUM:ind What actor came to dinner in Guess Who 's Coming to Dinner ?
+HUM:ind What American actress was the first to be called a `` vamp '' ?
+HUM:ind What are Arnold Palmer 's fans called ?
+HUM:ind What are names of two old men who appear in the serial tv Muppets Show ?
+HUM:ind What are the characters ' names in the Scooby-Doo cartoon ?
+HUM:ind What are the first names of Rowan and Martin , the stars of TV 's Laugh-In ?
+HUM:ind What author did photographer Yousuf Karsh call `` the shiest man I ever met '' ?
+HUM:ind What baseball great plugged Mr. Coffee ?
+HUM:ind What British commander surrendered to George Washington at Yorktown in 1781 ?
+HUM:ind What comedian created a punch-drunk pugilist named Cauliflower McPugg ?
+HUM:ind What comedian has a legendary reputation for stealing jokes ?
+HUM:ind What comedian hit the TV screen in 1951 with the NBC afternoon show Time for Ernie ?
+HUM:ind What English explorer discovered and named Virginia ?
+HUM:ind What English physician was born on January 18 , 1779 and went on to create two important inventions ?
+HUM:ind What famous actress made her first appearance on stage at the age of five in the year 191 as `` Baby '' ?
+HUM:ind What famous British actor lost his voice after an operation in 1966 ?
+HUM:ind What famous coach said `` if you can 't beat 'em in the alley , you can 't beat 'em on the ice '' ?
+HUM:ind What famous comedian recently tried without success to revive the play ?
+HUM:ind What female painter produced primitives of rural New England life ?
+HUM:ind What is Alice Cooper 's real name ?
+HUM:ind What is a person called that likes fire ?
+HUM:ind What is a person called that likes fire ?
+HUM:ind What is Drew Barrymore 's middle name ?
+HUM:ind What is Dr. Ruth 's last name ?
+HUM:ind What is Goldfinger 's first name ?
+HUM:ind What is her husband 's name ?
+HUM:ind What President became Chief Justice after his presidency ?
+HUM:ind What President dispatched a cruiser to carry Charles Lindbergh home after his epic flight ?
+HUM:ind What President had never held an elected office until he was elected to the White House ?
+HUM:ind What TV character said ; `` One of these days , Alice , pow , right in the kisser '' ?
+HUM:ind What TV character sired a horse named Thunder ?
+HUM:ind What two baseball players make up the battery ?
+HUM:ind What two commanders directed the forces in the Battle of El Alamein ?
+HUM:ind What U.S. Air Force general led the first bombing raid over Tokyo ?
+HUM:ind What U.S. Congressman said : `` Keep the faith , baby '' .
+HUM:ind What was Al Capone 's nickname ?
+HUM:ind What was American folk hero John Chapman 's nickname ?
+HUM:ind What well-known actor is the father of star Alan Alda ?
+HUM:ind Which of the following actors worked in New York 's Yiddish Theater ?
+HUM:ind Which of the following celebrities started his show-biz career as a disc jockey ?
+HUM:ind Who are the presidents of Mexico and Indonesia ?
+HUM:ind Who are the top 10 richest people in the world ?
+HUM:ind Who created Dennis the Menace ?
+HUM:ind Who created Harry Lime ?
+HUM:ind Who did Bobby Fischer beat to win the world chess championship ?
+HUM:ind Who did Dita Beard work for ?
+HUM:title What is Larry King 's job ?
+LOC:city In what city does Maurizio Pellegrin now live ?
+LOC:city What African capital is named for a U.S. president ?
+LOC:city What are the 10 largest cities in the US ?
+LOC:city What city did the Flintstones live in ?
+LOC:city What city has the two steepest streets in the U.S. ?
+LOC:city What city is Logan Airport in ?
+LOC:city What city is near the mouth of the Amazon ?
+LOC:city What city is often called The Insurance Capital of the World ?
+LOC:city What city is served by Logan International Airport ?
+LOC:city What city is served by McCarren Airport ?
+LOC:city What city was Bobby Kennedy assassinated in ?
+LOC:city What is the capital of Burkina Faso ?
+LOC:city What is the capital of California ?
+LOC:city What is the capital of Congo ?
+LOC:city What Russian city boasts the Hermitage Museum ?
+LOC:city What U.S. city is known as The Rubber Capital of the World ?
+LOC:city What were the cities of Dickens 's A Tale of Two Cities ?
+LOC:city Which city in Canada is the least-populated ?
+LOC:country What are the five richest countries in the world ?
+LOC:country What countries does the Mont Blanc Tunnel join ?
+LOC:country What country contains Africa 's northernmost point ?
+LOC:mount What is the highest mountain in the world ?
+LOC:mount What is the tallest mountain ?
+LOC:mount What mountain range marks the border of France and Spain ?
+LOC:other What are all the rivers in Europe ?
+LOC:other What are Britain 's two longest rivers ?
+LOC:other What are some good fractal web sites ?
+LOC:other What are some good medical sites for information ?
+LOC:other What California bay 's largest island is Angel Island ?
+LOC:other What constellation is known as The Water Bearer ?
+LOC:other What famed library can you reach by dialing 22-287-5 ?
+LOC:other What famed London criminal court was once a feudal castle ?
+LOC:other What is Answers.com 's address ?
+LOC:other What is a reliable site that I can download Heretic 2 ?
+LOC:other What island group contains Jersey , Guernsey , Sark and Herm ?
+LOC:other What island group is Guadalcanal a part of ?
+LOC:other What is the largest county in size in Massachusetts ?
+LOC:other What is the largest island in the Mediterranean Sea ?
+LOC:other What is the name of the gulf between Sweden and Finland ?
+LOC:other What is the name of the planet that the Ewoks live on ?
+LOC:other What is the oldest website on the Internet ?
+LOC:other What ocean did the Titanic sink in ?
+LOC:other What ocean does Mauritania border ?
+LOC:other What planet did Percival Lovell discover ?
+LOC:other What planet gave bith to Superman ?
+LOC:other What river does the Grand Coulee Dam dam ?
+LOC:other What river flows past the Temple of Karnak ?
+LOC:other What river flows through Vienna , Budapest and Belgrade ?
+LOC:other What 's the closest G2 Spectrum Yellow Dwarf to Earth ?
+LOC:other What 's the farthest planet from the sun ?
+LOC:other What 's the home of the Rockettes ?
+LOC:other What 's the largest island in the West Indies ?
+LOC:other What was Einstein 's birthplace ?
+LOC:other What was known as the Spice Island ?
+LOC:other Where are diamonds mined ?
+LOC:other Where are good science sites on the Internet ?
+LOC:other Where are some great educational resources for parents and teachers ?
+LOC:other Where are the 49 steps ?
+LOC:other Where are the apartments in Saint John , New Brunswick ?
+LOC:other Where can I buy a good snowboard for less than $200 ?
+LOC:other Where can I buy a hat like the kind Jay Kay from Jamiroquai wears ?
+LOC:other Where can I find a case on Americans with Disabilities Act of 199 ?
+LOC:other Where can I find a case on Individuals with Disabilities Education Act of 1991 ?
+LOC:other Where can I find a `` Fifth Element '' screensaver ?
+LOC:other Where can I find a large list of 5 to 6 letter words ?
+LOC:other Where can one find Mozambique ?
+LOC:other Where did Bill Gates go to college ?
+LOC:other Where did bocci originate ?
+LOC:other Where does chocolate come from ?
+LOC:other Where does dew come from ?
+LOC:other Where do quality drinks begin ?
+LOC:other Where is Burma ?
+LOC:other Where was Christopher Columbus born ?
+LOC:state In what state was the first co-educational college established
+LOC:state What is the largest U.S. state east of the Mississippi ?
+LOC:state What state did Helen Keller call home ?
+LOC:state What U.S. state are the Finger Lakes in ?
+LOC:state What U.S. state boasts Leif Ericson Park ?
+LOC:state What U.S. state has an element named for it ?
+LOC:state What U.S. state is Fort Knox in ?
+NUM:count How many American actors were nominated for the best actor Oscar for 1983 ?
+NUM:count How many bones are in the human hand ?
+NUM:count How many tiles did the Space Shuttle Columbia lose on its second flight ?
+NUM:count How many types of cheese are there in France ?
+NUM:count How many years did it take James Joyce to write Ulysses ?
+NUM:count How much calcium should an adult female have daily ?
+NUM:count How much snow equals an inch of rain ?
+NUM:count How much waste does an average dairy cow produce in a day ?
+NUM:count What is the chromosome number of an elephant ?
+NUM:date In what year did China and the Republic of Korea establish diplomatic relations ?
+NUM:date In what year was actress Joan Collins born ?
+NUM:date In what year was De Gaulle elected president of France ?
+NUM:date In what year was Gandhi assassinated ?
+NUM:date What century did art 's Romantic Period begin in ?
+NUM:date What day is known as the `` national day of prayer '' ?
+NUM:date What is Dick Clark 's birthday ?
+NUM:date What is the busiest air travel season ?
+NUM:date What month did the Edmund Fitzgerald sink ?
+NUM:date What time does Wee Willie Winkie run through the town ?
+NUM:date What year did Apartheid start ?
+NUM:date What year did Charles Dicken die ?
+NUM:date What year did Degas create the bronze sculpture , `` Fourth Position Front ? ''
+NUM:date What year did Germany sign its nonaggression pact with the Soviet Union ?
+NUM:date What year did Hitler die ?
+NUM:date What year did Montana become a state ?
+NUM:date What year did nylon stockings first go on sale ?
+NUM:date What year was Janet Jackson 's first album released ?
+NUM:date What year was the ATM first introduced ?
+NUM:date When did French revolutionaries storm the Bastille ?
+NUM:date When did Mount St. Helens last erupt ?
+NUM:date When did the art of quilting begin ?
+NUM:date When did the Berlin Wall go up ?
+NUM:date When did the Bounty mutiny take place ?
+NUM:date When did the Dow first reach ?
+NUM:date When did the Jurassic Period end ?
+NUM:date When did the last Americans leave Vietnam ?
+NUM:date When did the neanderthal man live ?
+NUM:date When did the original Howdy Doody show go off the air ?
+NUM:date When is Bastille Day ?
+NUM:date When is Boxing Day ?
+NUM:date When is Dick Clark 's birthday ?
+NUM:date When was Babe Ruth born ?
+NUM:date When was Beethoven born ?
+NUM:date When was Berlin 's Brandenburg gate erected ?
+NUM:date When was Calypso music invented ?
+NUM:date When was child labor abolished ?
+NUM:date When was China 's first nuclear test ?
+NUM:date When was Microsoft established ?
+NUM:date When was Nostradamus born ?
+NUM:date When was Ozzy Osbourne born ?
+NUM:date When was Queen Victoria born ?
+NUM:date When was the first American encyclopedia published ?
+NUM:date When was the first Barbie produced ?
+NUM:date When was the first flush toilet invented ?
+NUM:date When was the first practical commercial typewriter marketed ?
+NUM:date When were camcorders introduced in Malaysia ?
+NUM:date When will Jean Aeul publish her next book ?
+NUM:dist How far can you see ?
+NUM:dist How long is Camptown Racetrack ?
+NUM:dist How tall is Prince Charles ?
+NUM:dist What is the wingspan of a condor ?
+NUM:money How much did Alaska cost when bought from Russia ?
+NUM:money How much does a new railroad coal car cost ?
+NUM:money How much money does a back injury lawsuit get ?
+NUM:money How much would a black-and-white 1-cent stamp be worth , Thomas Jefferson on it , ?
+NUM:money What does each of the utilities cost in Monopoly ?
+NUM:other How large is Missouri 's population ?
+NUM:other How loud is thunder ?
+NUM:other What is the approximate population of Las Vegas , N.M ?
+NUM:other What is the population of Japan ?
+NUM:other What is the population of Kansas ?
+NUM:other What is the population of Mexico ?
+NUM:other What was the death toll at the eruption of Mount Pinatubo ?
+NUM:perc What are the highest-paying odds on a roulette table ?
+NUM:perc What is the chance of conceiving quadruplets ?
+NUM:perc What is the current unemployment rate in the U.S. ?
+NUM:perc What percentage of all world tornados touch down in the US ?
+NUM:perc What percentage of American men are alcoholic ?
+NUM:perc What percentage of Americans own their homes ?
+NUM:period How long ago did the Anglican church part from the Vatican ?
+NUM:period How long did it take Stanley to find Livingstone ?
+NUM:period How long does a dog sleep ?
+NUM:period How long does it take for Spider-Man 's web to evaporate ?
+NUM:period How long does it take sunlight to reach Earth ?
+NUM:period How long is human gestation ?
+NUM:period How long was the longest hiccup attack ?
+NUM:period How old is Benny Carter ?
+NUM:period How old was Gene Siskel ?
+NUM:period What is the average age a horse lives ?
+NUM:temp What is the temperature for cooking ?
+NUM:volsize How big is a baby bald eagle ?
+NUM:volsize How big is a normal size penis for a 15-year-old ?
+NUM:volsize How big is a quart ?
+NUM:weight How much did a knight 's armor weigh ?
+NUM:weight What is the average weight for a man ?

@@ -31,7 +31,6 @@ class Dataset():
         self.vocabulary = None
         self.vocabulary_inv = None
 
-
     def clean_text(self, text):
         ## Clean the text
         text = re.sub(r"[^A-Za-z0-9:(),!?\'\`]", " ", text)
@@ -166,6 +165,80 @@ class Dataset():
         y_train, y_val = y_shuffled[:-val_split], y_shuffled[-val_split:]
         
         return [x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, x_val_atten, x_test_atten]
+    
+    def load_with_val_dataset(self, val_dataset):
+        print("Loading data")
+        x_train_data = list(open(self.training_dataset, encoding = 'utf-8').readlines())
+        x_val_data = list(open(val_dataset, encoding = 'utf-8').readlines())
+        x_test_data = list(open(self.test_dataset, encoding = 'utf-8').readlines())
+        self.atten_words = open(self.atten_words_dataset, encoding = 'utf-8').read()
+        self.atten_words = self.atten_words.split(",")
+        
+        test_size = len(x_test_data)
+        val_size = len(x_val_data)
+        train_size = len(x_train_data)
+        print("Length of train data is ", train_size)
+        print("Length of validation data is ", val_size)
+        print("Length of test data is ", test_size)
+        
+        x_text_data = x_train_data + x_val_data + x_test_data
+        x_text_data = [self.clean_text(sent) for sent in x_text_data]
+        y_text_data = [s.split(' ')[0].split(':')[0] for s in x_text_data]
+        x_text_data = [s.split(" ")[1:] for s in x_text_data]
+                        
+        # Generate attention sentences
+        x_text_atten = self.gen_attention_word_sen(x_text_data)
+                        
+        for label in y_text_data:
+            if not label in self.y_classes_inv:
+                indx = len(self.y_classes_inv)
+                self.y_classes_inv[label] = indx
+                self.y_classes[indx] = label
+        
+        one_hot = np.identity(len(self.y_classes_inv))
+        y_labels = [one_hot[ self.y_classes_inv[label]-1 ] for label in y_text_data]
+    
+        x_text_data = self.pad_sentences(x_text_data)
+        x_text_atten = self.pad_sentences(x_text_atten)
+        
+        self.build_vocab(x_text_data)
+        self.x_test_text = x_text_data[-test_size:]
+        self.y_test_text = y_text_data[-test_size:]
+                
+        x, y = self.fit_on_texts(x_text_data, y_labels)
+        x_atten, z = self.fit_on_texts(x_text_atten, y_labels)
+        
+        x_train_atten_, x_test_atten = x_atten[:-test_size], x_atten[-test_size:]
+        x_train_ = x[:-(test_size + val_size)]
+        x_val_ = x[-(test_size + val_size):]
+        x_test = x_val_[-test_size:]
+        x_val_ = x_val_[:-test_size]
+        
+        y_train_ = y[:-(test_size + val_size)]
+        y_val_ = y[-(test_size + val_size):]
+        y_test = y_val_[-test_size:]
+        y_val_ = y_val_[:-test_size]
+        
+        print("len of x_test = ", len(x_test))
+        print("len of x_val_ = ", len(x_val_))
+        print("len of y_test = ", len(y_test))
+        print("len of y_val_ = ", len(y_val_))
+        
+        shuffle_train_indices = np.random.permutation(np.arange(len(y_train_)))
+        shuffle_val_indices = np.random.permutation(np.arange(len(y_val_)))
+        x_atten_shuffled = x_train_atten_[shuffle_train_indices]
+        
+        x_train = x_train_[shuffle_train_indices]
+        y_train = y_train_[shuffle_train_indices]
+        x_val = x_val_[shuffle_val_indices]
+        y_val = y_val_[shuffle_val_indices]
+        
+        val_split = 500
+        # Split train/hold-out/test set
+        x_train_atten, x_val_atten = x_atten_shuffled[:-val_split], x_atten_shuffled[-val_split:]
+                
+        return [x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, x_val_atten, x_test_atten]
+    
     
     def print_training_stat(self, logs_dir, color_list):
         # Read a data file

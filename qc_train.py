@@ -58,7 +58,8 @@ class SaveBestCallback(tf.keras.callbacks.Callback):
         self.filepath = filepath
         
     def on_epoch_end(self, epoch, logs={}):
-        val_acc = round(logs['val_acc'], 4)
+        print("logs = ", logs)
+        val_acc = round(logs['val_categorical_accuracy'], 4)
         val_loss = round(logs['val_loss'], 4)
         if self.best_val_acc < val_acc and self.best_val_loss > val_loss:
             self.best_val_acc = val_acc
@@ -74,7 +75,7 @@ class SaveBestCallback(tf.keras.callbacks.Callback):
             print("\nEpoch {}: Current best val_acc is {} and val_loss is {}".format(
                         epoch, self.best_val_acc, self.best_val_loss))
             
-def train_model(model_list, trained_models_file, train_dataset, test_dataset, embedding_file, 
+def train_model(model_list, trained_models_file, train_dataset, val_dataset, test_dataset, embedding_file, 
               atten_words_dict_file, batch_size, epochs, validation_samples,
               dropout_rate):
     model_history = dict()
@@ -86,9 +87,12 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
     epoch_list = []
     
     ds = qc_data.Dataset(train_dataset, test_dataset, atten_words_dict_file)
+    #x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, \
+    #    x_val_atten, x_test_atten = ds.load(validation_samples)
+    
     x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, \
-        x_val_atten, x_test_atten = ds.load(validation_samples)
-         
+        x_val_atten, x_test_atten = ds.load_with_val_dataset(val_dataset)
+    
     emb = qc_emb.Embeddings(embedding_file)
     emb_matrix = emb.get_emb_matrix(ds.vocabulary_inv)
     emb_dim = emb.get_emb_dim()
@@ -148,11 +152,12 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
             model.summary()
             model.compile(loss="categorical_crossentropy",
                           optimizer="adam",
-                          metrics=['acc'])
+                          metrics=['categorical_accuracy'])
+            csv_logger = tf.keras.callbacks.CSVLogger('training.log')
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)
             history = model.fit(x_train, y_train, batch_size=batch_size, 
                                 validation_data=(x_val, y_val), epochs=epochs, 
-                                verbose=1, callbacks=[modelCheckpoint])
+                                verbose=1, callbacks=[modelCheckpoint, csv_logger])
             model = qc_cnn.CNN(emb_dim, voc_size, sen_len,
                               num_class, emb_matrix, 0)
             
@@ -164,7 +169,7 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
             RMSprop = tf.keras.optimizers.RMSprop(lr=0.001, rho=0.9)
             model.compile(loss="categorical_crossentropy",
                           optimizer=RMSprop,
-                          metrics=['acc'])
+                          metrics=['categorical_accuracy'])
                                 
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)
             history = model.fit(x_train, y_train, batch_size=batch_size, 
@@ -180,7 +185,7 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
             RMSprop = tf.keras.optimizers.RMSprop(lr=0.001, rho=0.9)
             model.compile(loss="categorical_crossentropy",
                           optimizer=RMSprop,
-                          metrics=['acc'])
+                          metrics=['categorical_accuracy'])
                                 
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)
             history = model.fit(x_train, y_train, batch_size=batch_size, 
@@ -196,7 +201,7 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
             RMSprop = tf.keras.optimizers.RMSprop(lr=0.001, rho=0.9)
             model.compile(loss="categorical_crossentropy",
                           optimizer=RMSprop,
-                          metrics=['acc'])
+                          metrics=['categorical_accuracy'])
                                 
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)
             history = model.fit(x_train, y_train, batch_size=batch_size, 
@@ -212,7 +217,7 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
             RMSprop = tf.keras.optimizers.RMSprop(lr=0.001, rho=0.9)
             model.compile(loss="categorical_crossentropy",
                           optimizer=RMSprop,
-                          metrics=['acc'])
+                          metrics=['categorical_accuracy'])
                                 
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)
             history = model.fit(x_train, y_train, batch_size=batch_size, 
@@ -228,7 +233,7 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
             RMSprop = tf.keras.optimizers.RMSprop(lr=0.001, rho=0.9)
             model.compile(loss="categorical_crossentropy",
                           optimizer=RMSprop,
-                          metrics=['acc'])
+                          metrics=['categorical_accuracy'])
                                 
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)
             history = model.fit(x_train, y_train, batch_size=batch_size, 
@@ -244,7 +249,7 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
             RMSprop = tf.keras.optimizers.RMSprop(lr=0.001, rho=0.9)
             model.compile(loss="categorical_crossentropy",
                           optimizer=RMSprop,
-                          metrics=['acc'])
+                          metrics=['categorical_accuracy'])
                                 
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)
             history = model.fit(x_train, y_train, batch_size=batch_size, 
@@ -260,7 +265,7 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
             RMSprop = tf.keras.optimizers.RMSprop(lr=0.001, rho=0.9)
             model.compile(loss="categorical_crossentropy",
                           optimizer=RMSprop,
-                          metrics=['acc'])
+                          metrics=['categorical_accuracy'])
                                 
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)
             history = model.fit(x_train, y_train, batch_size=batch_size, 
@@ -276,7 +281,7 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
             RMSprop = tf.keras.optimizers.RMSprop(lr=0.001, rho=0.9)
             model.compile(loss="categorical_crossentropy",
                           optimizer=RMSprop,
-                          metrics=['acc'])
+                          metrics=['categorical_accuracy'])
                                 
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)
             history = model.fit(x_train, y_train, batch_size=batch_size, 
@@ -292,12 +297,13 @@ def train_model(model_list, trained_models_file, train_dataset, test_dataset, em
             model.summary()
             model.compile(loss="categorical_crossentropy",
                           optimizer="adam",
-                          metrics=['acc'])
+                          metrics=['categorical_accuracy'])
             
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)             
-            history = model.fit([x_train, x_train_atten], y_train, batch_size=batch_size, 
-                                validation_data = ([x_val, x_val_atten], y_val), epochs=epochs, 
-                                verbose=1, callbacks=[modelCheckpoint])
+            #history = model.fit([x_train, x_train_atten], y_train, batch_size=batch_size, 
+            #                    validation_data = ([x_val, x_val_atten], y_val), epochs=epochs, 
+            #                    verbose=1, callbacks=[modelCheckpoint])
+            return
             
         else:
             print("Requested model {} is not implemented".format(model_name))

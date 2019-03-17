@@ -68,45 +68,28 @@ class Attention(tf.keras.layers.Layer):
         self.i_dim = int(i_dim)
         self.a_words = int(words)
         self.a_dim = int(dim)       
-        self.atten_weight = self.add_weight(
-                                        name='atten_weight',
-                                        shape=(int(1), int(words), int(dim)),
-                                        initializer=self.weight_initializer,
-                                        regularizer=self.weight_regularizer,
-                                        constraint=self.weight_constraint,
-                                        trainable=True,
-                                        dtype=tf.float32)
-        if self.use_bias:
-            self.atten_bias = self.add_weight(
-                                        name='atten-bias',
-                                        shape=(int(dim),),
-                                        initializer=self.bias_initializer,
-                                        regularizer=self.bias_regularizer,
-                                        constraint=self.bias_constraint,
-                                        trainable=True,
-                                        dtype=self.dtype)
-        else:
-            self.atten_bias = None
-            
-        super().build(input_shape)
-        self.built = True
+        #self.input_shape = input_shape
+        #self.atten_shape = atten_input_shape
         
-        print("atten_weight = ", self.atten_weight)
-        print("bias = ", self.atten_bias)
+        super().build(input_shape)
         
     def call(self, input):
         input, atten_input = input
-    
-        
+            
         print("call: atten_input: ", atten_input)
         print("call: input: ", input)
+        
         # Prepare Attention vector
-        w = tf.keras.layers.Multiply()([atten_input, self.atten_weight])
-        print("call: w: ", w)
         
-        
+        output = tf.keras.layers.Dense(self.a_dim)(atten_input)
+        print("call: output: ", output)
+        output = tf.keras.layers.RepeatVector(self.i_words)(output)
+        print("call: repeat output: ", output)
+                        
         # Prepare Input vecotr
-        output = []
+        '''
+        output = input
+        
         input_tensors = tf.split(input, self.i_words, axis=1)
         print("call: input_tensors: ", input_tensors)
         for i in input_tensors:
@@ -122,14 +105,17 @@ class Attention(tf.keras.layers.Layer):
             output.append(sum)
         
         output = tf.keras.layers.concatenate(output, axis=1)
-        output = tf.keras.layers.Activation("softmax")(output)
-        output = tf.keras.layers.Multiply()([output, input])
+        '''
         
-        print("call: output: ", output)
-        #w = tf.keras.layers.Reshape((1, self.a_words, self.a_dim))(w)
-        #w = K.repeat_elements(w, self.i_words, 1)
-        #print("call: repeat w: ", w)
-        return output
+        #output = tf.keras.layers.Activation("softmax")(output)
+        #output = tf.keras.layers.Multiply()([output, input])
+        #print("call: output: ", output)
+        #o_shape=(1, int(self.i_words), int(self.i_dim))
+        
+        #output = K.reshape(output, o_shape)
+        #output = tf.keras.layers.Reshape(o_shape)(output)
+        #print("call: output: ", output)
+        return input
     
     def compute_output_shape(self, input_shape):
         input_shape, atten_input_shape = input_shape
