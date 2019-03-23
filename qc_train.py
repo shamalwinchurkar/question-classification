@@ -30,14 +30,16 @@ class TestCallback(tf.keras.callbacks.Callback):
         self.test_data = test_data
         
     def on_epoch_end(self, epoch, logs={}):
-        print("\nTesting Test Data on epoch :", epoch)
+        print("\nTesting Validation Data on epoch :", epoch)
         x, y, batch_size = self.test_data
         y_pred_cnn = self.model.predict(x, verbose=1, batch_size=batch_size)
+        print("Predection Probabilities:")
+        print(y_pred_cnn)
         y_pred_cnn = (y_pred_cnn > 0.5)
         y_test_nc = [ np.argmax(t) for t in y ]
         y_pred_nc = [ np.argmax(t) for t in y_pred_cnn ]
         cm = confusion_matrix(y_test_nc, y_pred_nc)
-        print("Confusion Matrix:")
+        print("Confusion Matrix of Validation Data:")
         print(cm)
         length = len(cm[0])
         accuracy_cnn = 0
@@ -45,10 +47,10 @@ class TestCallback(tf.keras.callbacks.Callback):
             accuracy_cnn += cm[i][i]
         accuracy_cnn = (accuracy_cnn / len(y_test_nc)) * 100
         loss_cnn = 100 - accuracy_cnn
-        print("\nTest Score: Accuracy {}".format(accuracy_cnn))
-        print("\nTest Score: Loss {}".format(loss_cnn))
+        print("\nValidation Score (CM): Accuracy {}".format(accuracy_cnn))
+        print("\nValidation Score (CM): Loss {}".format(loss_cnn))
         loss, acc = self.model.evaluate(x, y, verbose=0)
-        print('\nTesting loss: {}, acc: {}\n'.format(round(loss, 2),
+        print('\nValidation loss(Log): {}, acc: {}\n'.format(round(loss, 2),
               round(acc, 2)))
 
 class SaveBestCallback(tf.keras.callbacks.Callback):
@@ -86,12 +88,13 @@ def train_model(model_list, trained_models_file, train_dataset, val_dataset, tes
     model_val_loss = []
     epoch_list = []
     
-    ds = qc_data.Dataset(train_dataset, test_dataset, atten_words_dict_file)
+    ds = qc_data.Dataset(train_dataset, val_dataset, test_dataset, \
+                         atten_words_dict_file)
     #x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, \
     #    x_val_atten, x_test_atten = ds.load(validation_samples)
     
     x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, \
-        x_val_atten, x_test_atten = ds.load_with_val_dataset(val_dataset)
+        x_val_atten, x_test_atten = ds.load_with_val_dataset()
     
     emb = qc_emb.Embeddings(embedding_file)
     emb_matrix = emb.get_emb_matrix(ds.vocabulary_inv)
@@ -150,14 +153,18 @@ def train_model(model_list, trained_models_file, train_dataset, val_dataset, tes
                               num_class, emb_matrix,
                               dropout_rate)
             model.summary()
+            RMSprop = tf.keras.optimizers.RMSprop(lr=0.001, rho=0.9)
             model.compile(loss="categorical_crossentropy",
-                          optimizer="adam",
+                          optimizer=RMSprop,
                           metrics=['categorical_accuracy'])
+            
+            test_callback = TestCallback((x_val, y_val, batch_size))
             csv_logger = tf.keras.callbacks.CSVLogger('training.log')
             modelCheckpoint = SaveBestCallback(filepath = checkpoint_file)
             history = model.fit(x_train, y_train, batch_size=batch_size, 
                                 validation_data=(x_val, y_val), epochs=epochs, 
-                                verbose=1, callbacks=[modelCheckpoint, csv_logger])
+                                verbose=1, callbacks=[modelCheckpoint,
+                                                      csv_logger])
             model = qc_cnn.CNN(emb_dim, voc_size, sen_len,
                               num_class, emb_matrix, 0)
             

@@ -22,8 +22,9 @@ https://github.com/thtrieu/qclass_dl/blob/master/data_helpers.py
 ''' 
 
 class Dataset():
-    def __init__(self, training_dataset, test_dataset, atten_words_dataset):
+    def __init__(self, training_dataset, val_dataset, test_dataset, atten_words_dataset):
         self.training_dataset = training_dataset
+        self.val_dataset = val_dataset
         self.test_dataset = test_dataset
         self.atten_words_dataset = atten_words_dataset
         self.y_classes = dict()
@@ -166,13 +167,14 @@ class Dataset():
         
         return [x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, x_val_atten, x_test_atten]
     
-    def load_with_val_dataset(self, val_dataset):
+    def load_with_val_dataset(self):
         print("Loading data")
         x_train_data = list(open(self.training_dataset, encoding = 'utf-8').readlines())
-        x_val_data = list(open(val_dataset, encoding = 'utf-8').readlines())
+        x_val_data = list(open(self.val_dataset, encoding = 'utf-8').readlines())
         x_test_data = list(open(self.test_dataset, encoding = 'utf-8').readlines())
         self.atten_words = open(self.atten_words_dataset, encoding = 'utf-8').read()
         self.atten_words = self.atten_words.split(",")
+        
         
         test_size = len(x_test_data)
         val_size = len(x_val_data)
@@ -310,6 +312,45 @@ class Dataset():
         filename = os.path.join(logs_dir, "qtype_test_data_distribution.png")
         class_fig.savefig(filename)
         pyplot.show()
+                
+    def print_val_stat(self, logs_dir, color_list):
+        # Read a data file
+        class_stat = np.zeros(self.get_num_class())
+        texts = []
+        line_no = 0
+        
+        if self.val_dataset is None:
+            return
+        
+        file = open(self.val_dataset, "r", encoding = 'utf-8')
+        for line in file:
+            texts += [line]
+            words = line.split(":")
+            #if line_no != 0:
+            class_stat[self.y_classes_inv[words[0].lower()]] += 1    
+            line_no += 1
+        file.close()
+        
+        print("Validation Dataset:")
+        class_index = []
+        class_stat_per = np.zeros(self.get_num_class())
+        for indx in range(self.get_num_class()):
+            class_stat_per[indx] = (class_stat[indx] / line_no) * 100
+            class_index.append(self.y_classes[indx].upper())
+            print("Class : ", indx, "\t: ", self.y_classes[indx].upper(),
+                  " = ", class_stat[indx],
+                  "\t: % ", round(class_stat_per[indx], 1))
+              
+        print("Questions in validation dataset: ", line_no)    
+        class_fig = pyplot.figure()
+        pyplot.bar(class_index, class_stat_per,  
+        width = 1.0, color = color_list) 
+        pyplot.xlabel('Question Type Class', fontsize=18) 
+        pyplot.ylabel('Distribution (%)', fontsize=18) 
+        pyplot.title('Question Type Validation Data Distribution Graph', fontsize=18)
+        filename = os.path.join(logs_dir, "qtype_val_data_distribution.png")
+        class_fig.savefig(filename)
+        pyplot.show()
         
     def print_stat(self, logs_dir):    
         color_list = ['red', 'green', 'blue', 'orange', 'yellow', 'black']
@@ -319,6 +360,7 @@ class Dataset():
         print("Classes: ", self.get_num_class())
                     
         self.print_training_stat(logs_dir, color_list)
+        self.print_val_stat(logs_dir, color_list)
         self.print_test_stat(logs_dir, color_list)
     
     def write_predections(self, filename, y_test, y_pred):
