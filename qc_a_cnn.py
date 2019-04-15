@@ -147,7 +147,32 @@ class ACNN(tf.keras.models.Model):
                                        kernel_regularizer = tf.keras.regularizers.l2(l=0.0) )(layer) 
         super(ACNN, self).__init__(inputs=[input_s, input_p], outputs=[output])
 
+'''
+class ACNN(tf.keras.models.Model):
+    def __init__(self, emb_dim, num_words, sentence_length, atten_sen_len,
+               class_dim, embedding_matrix, dropout_rate):
+        
+        input_s = tf.keras.layers.Input(shape=(sentence_length,), dtype=tf.int32)
+        activations = tf.keras.layers.Embedding(num_words,
+                                          embeddings_initializer=
+                                          qc_emb.EmbeddingWeights(embedding_matrix), 
+                                          output_dim=emb_dim)(input_s)
+                       
+        input_p = tf.keras.layers.Input(shape=(atten_sen_len,), dtype=tf.int32)
+        attention = tf.keras.layers.Embedding(num_words,
+                                          embeddings_initializer=
+                                          qc_emb.EmbeddingWeights(embedding_matrix), 
+                                          output_dim=emb_dim)(input_p)
+        layer = attention = Attention()([activations, attention])        
+        layer = tf.keras.layers.Conv1D(emb_dim, 3, activation="relu")(layer)
+        layer = tf.keras.layers.MaxPool1D(3, 1)(layer)
+        layer = tf.keras.layers.Dropout(dropout_rate)(layer)
+        layer = tf.keras.layers.Flatten()(layer)
+        output = tf.keras.layers.Dense(class_dim, activation="softmax", 
+                                       kernel_regularizer = tf.keras.regularizers.l2(l=0.0) )(layer) 
+        super(ACNN, self).__init__(inputs=[input_s, input_p], outputs=[output])
 
+'''
 '''
 class ACNN(tf.keras.models.Model):
     def __init__(self, emb_dim, num_words, sentence_length, atten_sen_len,

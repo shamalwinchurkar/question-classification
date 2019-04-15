@@ -209,12 +209,18 @@ class Dataset():
                 
         x, y = self.fit_on_texts(x_text_data, y_labels)
         x_atten, z = self.fit_on_texts(x_text_atten, y_labels)
-        
-        x_train_atten_, x_test_atten = x_atten[:-test_size], x_atten[-test_size:]
+               
         x_train_ = x[:-(test_size + val_size)]
+        x_train_atten_ = x_atten[:-(test_size + val_size)]
+        
         x_val_ = x[-(test_size + val_size):]
+        x_val_atten_ = x_atten[-(test_size + val_size):]
+        
         x_test = x_val_[-test_size:]
+        x_test_atten = x_val_atten_[-test_size:]
+        
         x_val_ = x_val_[:-test_size]
+        x_val_atten_ = x_val_atten_[:-test_size]
         
         y_train_ = y[:-(test_size + val_size)]
         y_val_ = y[-(test_size + val_size):]
@@ -222,23 +228,26 @@ class Dataset():
         y_val_ = y_val_[:-test_size]
         
         print("len of x_test = ", len(x_test))
+        print("len of x_test_atten = ", len(x_test_atten))
         print("len of x_val_ = ", len(x_val_))
+        print("len of x_val_atten_ = ", len(x_val_atten_))
         print("len of y_test = ", len(y_test))
         print("len of y_val_ = ", len(y_val_))
         
         shuffle_train_indices = np.random.permutation(np.arange(len(y_train_)))
         shuffle_val_indices = np.random.permutation(np.arange(len(y_val_)))
-        x_atten_shuffled = x_train_atten_[shuffle_train_indices]
-        
+                
         x_train = x_train_[shuffle_train_indices]
+        x_train_atten = x_train_atten_[shuffle_train_indices]
         y_train = y_train_[shuffle_train_indices]
+        
         x_val = x_val_[shuffle_val_indices]
+        x_val_atten = x_val_atten_[shuffle_val_indices]
         y_val = y_val_[shuffle_val_indices]
         
-        val_split = 500
-        # Split train/hold-out/test set
-        x_train_atten, x_val_atten = x_atten_shuffled[:-val_split], x_atten_shuffled[-val_split:]
-                
+        print("shape of x_train_atten = ", x_train_atten.shape)
+        print("shape of x_val_atten = ", x_val_atten.shape)
+        print("shape of x_test_atten = ", x_test_atten.shape)
         return [x_train, y_train, x_val, y_val, x_test, y_test, x_train_atten, x_val_atten, x_test_atten]
     
     
