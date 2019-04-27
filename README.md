@@ -1,4 +1,4 @@
-# Question Classification using Deep Neural Netowrk Models
+# Question Classification using Deep Neural Network Models
 
 # Introduction
 
